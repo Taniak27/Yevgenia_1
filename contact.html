@@ -37,6 +37,7 @@
   </div>
    
   <!--Second section-->
+  
   <div class="box_container"> 
     <form onsubmit="sendEmail(); reset(); return false;">
       <h3 class="contact_heading">GET IN TOUCH</h3>
@@ -44,9 +45,41 @@
       <input type="email" id="email" placeholder="Your email" required>
       <input type="text" id="phone" placeholder="Phone no." required>
       <textarea id="message" rows="4" placeholder="How can we help you?"></textarea>
-      <button class="btn btn-1 btn-sep icon-info" type="submit">Send</button>
+      <button class="btn btn-1 btn-sep icon-info" onclick="sendEmail()">Send</button>
     </form> 
   </div>
+
+
+  <script>
+    function sendEmail() {
+      event.preventDefault();
+
+      let params = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        phone: document.getElementById("phone").value,
+        message: document.getElementById("message").value,
+      };
+
+      const serviceID = "service_n9p2xah";
+      const templateID = "template_0a7qedg";
+
+      emailjs.send(serviceID, templateID, params)
+      .then(
+        res => {
+          document.getElementById("name").value = "";
+          document.getElementById("email").value = "";
+          document.getElementById("phone").value = "";
+          document.getElementById("message").value = "";
+          console.log(res);
+          alert("Your message has sent successfully")
+        })
+        .catch(err => console.log(err));
+    }
+    
+  </script>
+
+  <!--
   <script src="https://smtpjs.com/v3/smtp.js"></script>
   <script>
     function sendEmail() {
@@ -68,7 +101,7 @@
       );
     }
   </script>
-  
+-->
 
   <!--Footer-->
   <div class="footer-section">
@@ -97,5 +130,15 @@
       </div>
     </div>
   </div>
+
+  <script type="text/javascript"
+    src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
+  </script>
+  <script type="text/javascript">
+    (function(){
+      emailjs.init("iPf_LbNPj41QA8a7v");
+    })();
+  </script>
+
 </body>
 </html>
